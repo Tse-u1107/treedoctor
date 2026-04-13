@@ -1,0 +1,287 @@
+{
+  "lang": { "mn": "Монгол", "en": "English" },
+  "nav": {
+    "dashboard": "Dashboard",
+    "trees": "My Trees",
+    "badges": "Badges",
+    "calendar": "Calendar",
+    "lesson": "Eco lesson"
+  },
+  "common": {
+    "signOut": "Sign out",
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "save": "Save",
+    "next": "Next",
+    "back": "Back",
+    "treesCount": "{{current}}/3 trees"
+  },
+  "calendar": {
+    "title": "Tree calendar",
+    "prevWeek": "Previous week",
+    "prevMonth": "Previous month",
+    "nextWeek": "Next week",
+    "nextMonth": "Next month",
+    "today": "Today",
+    "legendWatered": "Watered",
+    "legendLogged": "Logged",
+    "legendPlanted": "Planted",
+    "eventWater": "Watering",
+    "eventMeasure": "Measurement",
+    "eventPlant": "Planted",
+    "heightCm": "Height: {{cm}} cm",
+    "diameterCm": "Diameter: {{d}} cm",
+    "statusLine": "Status: {{status}}",
+    "statusHealthy": "Healthy",
+    "statusDead": "Dead",
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "xp": {
+    "label": "Experience (XP)",
+    "level": "Level",
+    "levelNew": "New planter",
+    "levelAssistant": "Assistant doctor",
+    "levelMaster": "Forest master",
+    "gained": "+{{amount}} XP",
+    "nextLevel": "Until next level"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Combined view of your planted trees",
+    "survivalTitle": "Survival outlook",
+    "survivalHint": "Estimated from latest health logs",
+    "treesTitle": "Total trees",
+    "growthTitle": "Growth entries",
+    "growthHint": "Number of measurements across all trees",
+    "myTrees": "My trees",
+    "growth": "Growth",
+    "heightProgress": "Height progress",
+    "diameterProgress": "Diameter progress",
+    "weeklyCal": "Weekly calendar",
+    "recentBadges": "Recent achievements",
+    "viewAll": "View all ({{count}})",
+    "plantFirst": "Plant your first tree to see growth charts",
+    "plantFirstCal": "Plant your first tree to see events",
+    "badgesEmpty": "Keep caring for your trees to earn badges!",
+    "plantFirstTree": "Plant your first tree",
+    "plantJourney": "Start your tree journey",
+    "certificateBanner": "You reached Eco‑Ambassador! Open your certificate.",
+    "openCertificate": "Open certificate",
+    "type": "Type",
+    "planted": "Planted",
+    "height": "Height",
+    "diameter": "Diameter",
+    "wateredTimes": "Watered: {{count}} times",
+    "lastLogged": "Last log",
+    "notAvailable": "Not available",
+    "myTree": "My tree",
+    "unknownType": "Unknown",
+    "recently": "Recently",
+    "chartHeightY": "Height (cm)",
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "tree": {
+    "header": "My trees",
+    "plantNew": "Plant a new tree",
+    "welcomeTitle": "Start your tree journey!",
+    "welcomeBody": "Plant your first tree and track growth. Every forest starts with one seed!",
+    "whyTitle": "Why plant a tree?",
+    "whyCli": "Help fight climate change",
+    "whyMem": "Create a lasting memory",
+    "whyGrow": "Watch it grow with you",
+    "getStarted": "Get started",
+    "treeName": "Tree name",
+    "treeType": "Tree type",
+    "selectType": "Select type",
+    "heightCm": "Initial height (cm)",
+    "diameterCm": "Initial diameter (cm)",
+    "photos": "Photos (up to 3)",
+    "dropPhotos": "Drop images here or click to select",
+    "capsule": "Time capsule message",
+    "ready": "Ready!",
+    "letsGo": "Let’s go! 🌱",
+    "maxTrees": "You can register up to 3 trees.",
+    "passportTitle": "Digital passport",
+    "passportHint": "Age, species, location, and health history are stored in the app.",
+    "ageDays": "Age (days)",
+    "location": "Location",
+    "mapPickHint": "Click the map to set coordinates (optional).",
+    "healthHistory": "Health history",
+    "seeAlbum": "See album",
+    "actions": "Actions",
+    "hideActions": "Hide",
+    "logTree": "Log status",
+    "waterTree": "Water tree",
+    "logFaq": "Log measurements every few months.",
+    "waterFaq": "About 4–6 litres per watering. Tap to record one watering.",
+    "logModalTitle": "Log tree status",
+    "status": "Status",
+    "newHeight": "New height (cm)",
+    "newDiameter": "New diameter (cm)",
+    "note": "Notes",
+    "logPicture": "Photo",
+    "albumTitle": "{{name}}’s growth",
+    "initialPicture": "Initial photo",
+    "logPictureType": "Log photo",
+    "plantingSuccess": "Tree planted successfully!",
+    "plantFail": "Could not save. Try again.",
+    "wateredOk": "Watering saved!",
+    "waterFail": "Could not record watering",
+    "logOk": "Log saved!",
+    "logFail": "Could not save log",
+    "fieldPhase": {
+      "name": "Tree name",
+      "type": "Tree type",
+      "height": "Initial height",
+      "diameter": "Initial diameter",
+      "picture": "Picture",
+      "capsule": "Time capsule",
+      "ready": "All set!"
+    }
+  },
+  "badges": {
+    "pageTitle": "My achievements",
+    "pageSubtitle": "Earn badges by watering, measuring, and caring for your trees — including secret ones.",
+    "unlocked": "✓ Unlocked",
+    "secretLabel": "??? · Secret achievement",
+    "required": "Required: {{req}}{{unit}}",
+    "categories": {
+      "watering": { "title": "Watering achievements", "unit": "waterings" },
+      "height": { "title": "Height milestones", "unit": "cm" },
+      "age": { "title": "Tree age achievements", "unit": "days" },
+      "consistency": { "title": "Consistency", "unit": "day streak" },
+      "secret": { "title": "Secret achievements", "unit": "" }
+    },
+    "items": {
+      "first_sip": {
+        "name": "First sip",
+        "desc": "You gave your tree its very first drink!"
+      },
+      "thirst_quencher": {
+        "name": "Thirst quencher",
+        "desc": "You are mastering keeping your tree happy and hydrated."
+      },
+      "rainmaker": {
+        "name": "Rainmaker",
+        "desc": "Your tree is grateful for all that care."
+      },
+      "hydration_hero": {
+        "name": "Hydration hero",
+        "desc": "You are officially a champion waterer!"
+      },
+      "monsoon_master": {
+        "name": "Monsoon master",
+        "desc": "So much water — so much dedication."
+      },
+      "oceans_bounty": {
+        "name": "Ocean's bounty",
+        "desc": "Enough watering cans to float a boat!"
+      },
+      "aqua_legend": {
+        "name": "Aqua legend",
+        "desc": "Your tree might feel like it lives in a rainforest."
+      },
+      "tiny_sprout": {
+        "name": "Tiny sprout",
+        "desc": "Your seedling is off to a promising start!"
+      },
+      "growing_sapling": {
+        "name": "Growing sapling",
+        "desc": "Shoot for the sky — your tree sure is."
+      },
+      "skyward_seedling": {
+        "name": "Skyward seedling",
+        "desc": "Look how tall your little friend is getting!"
+      },
+      "sapling_sentinel": {
+        "name": "Sapling sentinel",
+        "desc": "A meter-high guardian of nature."
+      },
+      "branch_ambassador": {
+        "name": "Branch ambassador",
+        "desc": "Time to wave hello to the birds."
+      },
+      "canopy_conqueror": {
+        "name": "Canopy conqueror",
+        "desc": "Nearly treehouse-level height — fantastic work!"
+      },
+      "first_week": {
+        "name": "First week",
+        "desc": "Your tree survived its first week!"
+      },
+      "month_milestone": {
+        "name": "Month milestone",
+        "desc": "A month of dedicated tree care — well done!"
+      },
+      "season_star": {
+        "name": "Season star",
+        "desc": "Three months strong through wind and weather!"
+      },
+      "half_year_hero": {
+        "name": "Half-year hero",
+        "desc": "Six months of growth and counting!"
+      },
+      "year_champion": {
+        "name": "Year champion",
+        "desc": "Happy first birthday to your tree!"
+      },
+      "water_streak_7": {
+        "name": "Week warrior",
+        "desc": "Water your trees on 7 consecutive calendar days."
+      },
+      "early_bird": {
+        "name": "Early bird",
+        "desc": "Water your tree at sunrise"
+      },
+      "tree_whisperer": {
+        "name": "Tree whisperer",
+        "desc": "Update your tree's measurements 5 days in a row"
+      },
+      "green_guardian": {
+        "name": "Green guardian",
+        "desc": "Water all your trees on the same day"
+      },
+      "growth_spurt": {
+        "name": "Growth spurt",
+        "desc": "Tree grows more than 10 cm in a week"
+      }
+    }
+  },
+  "lesson": {
+    "title": "Eco lesson + quiz",
+    "intro": "Instead of a full video lesson, here is one short question. Correct answer: +50 XP (once).",
+    "question": "Which tree is especially common across much of Mongolia?",
+    "a1": "Cherry",
+    "a2": "Birch",
+    "correctToast": "Correct! +50 XP",
+    "wrongToast": "Try again.",
+    "already": "You already completed this quiz."
+  },
+  "certificate": {
+    "title": "Eco‑Ambassador certificate",
+    "body": "Awarded in TreeDoctor to learners who reach 5,000+ XP.",
+    "name": "Name",
+    "date": "Date",
+    "print": "Print / Save as PDF",
+    "close": "Close",
+    "needLevel": "Reach 5,000 XP to unlock the certificate."
+  },
+  "landing": {
+    "brand": "TreeDoctor",
+    "forTeaching": "For educators",
+    "getStarted": "Get started",
+    "heroTitle": "A collaboration platform for school tree projects",
+    "heroSub": "Growth, watering, and health data in one place.",
+    "beginProject": "Begin your tree project"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "signIn": "Sign in",
+    "register": "Register",
+    "createAccount": "Create account",
+    "haveAccount": "Have an account? Sign in",
+    "noAccount": "New here? Register"
+  }
+}
