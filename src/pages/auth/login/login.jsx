@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
@@ -7,6 +8,7 @@ import { getAuth } from 'firebase/auth';
 import { setSession } from '../../../utils/sessionUtils';
 
 const Login = () => {
+    const { t } = useTranslation();
 
 	const auth = getAuth()
     const navigate = useNavigate();
@@ -43,7 +45,7 @@ const Login = () => {
 
     const handleForgotPassword = async () => {
         if (!formData.email) {
-            setError('Please enter your email address');
+            setError(t('auth.enterEmailFirst', { defaultValue: 'Эхлээд и-мэйл хаягаа оруулна уу.' }));
             return;
         }
 
@@ -66,13 +68,13 @@ const Login = () => {
             
             {resetSent && (
                 <div className="bg-green-50 text-green-500 p-3 rounded-lg text-sm">
-                    Password reset email sent! Check your inbox.
+                    {t('auth.resetSent', { defaultValue: 'Нууц үг шинэчлэх и-мэйл илгээгдлээ. И-мэйлээ шалгана уу.' })}
                 </div>
             )}
 
             <div>
                 <label className="block text-gray-700 mb-2" htmlFor="email">
-                    Email Address
+                    {t('auth.email')}
                 </label>
                 <input
                     type="email"
@@ -86,7 +88,7 @@ const Login = () => {
 
             <div>
                 <label className="block text-gray-700 mb-2" htmlFor="password">
-                    Password
+                    {t('auth.password')}
                 </label>
                 <div className="relative">
                     <input
@@ -113,7 +115,7 @@ const Login = () => {
                     className="text-sm text-green-600 hover:text-green-700"
                     onClick={handleForgotPassword}
                 >
-                    Forgot Password?
+                    {t('auth.forgotPassword', { defaultValue: 'Нууц үгээ мартсан уу?' })}
                 </button>
             </div>
 
@@ -121,7 +123,7 @@ const Login = () => {
                 type="submit"
                 className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors"
             >
-                Sign In
+                {t('auth.signIn')}
             </button>
         </form>
     );

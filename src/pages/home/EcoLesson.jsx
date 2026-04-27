@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAuth } from 'firebase/auth';
+import { collection, doc, getDocs, query, setDoc, orderBy } from 'firebase/firestore';
+import { db } from '../../../firebase';
 import toast from 'react-hot-toast';
 import {
   getUserXpDoc,
   awardXpAndSyncProfile,
-  markQuizDone,
   XP_REWARDS,
 } from '../../utils/xpUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faLeaf } from '@fortawesome/free-solid-svg-icons';
 
-const CORRECT_INDEX = 1;
-
 export default function EcoLesson() {
   const { t } = useTranslation();
-  const [picked, setPicked] = useState(null);
-  const [done, setDone] = useState(false);
+  const [pickedByQuiz, setPickedByQuiz] = useState({});
+  const [completedQuizIds, setCompletedQuizIds] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,32 +29,60 @@ export default function EcoLesson() {
       }
       const id = `${u.uid.slice(0, 5)}${u.uid.slice(-5)}`;
       try {
-        const docSnap = await getUserXpDoc(id);
-        setDone(!!docSnap.quizDone);
+        const [xpDoc, quizzesSnap] = await Promise.all([
+          getUserXpDoc(id),
+          getDocs(query(collection(db, 'teacherQuizzes'), orderBy('createdAt', 'desc'))),
+        ]);
+        setCompletedQuizIds(Array.isArray(xpDoc.quizDoneIds) ? xpDoc.quizDoneIds : []);
+
+        const teacherQuizzes = quizzesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        if (teacherQuizzes.length > 0) {
+          setQuizzes(teacherQuizzes);
+        } else {
+          setQuizzes([
+            {
+              id: 'default-quiz',
+              question: t('lesson.question'),
+              options: [t('lesson.a1'), t('lesson.a2')],
+              correctIndex: 1,
+            },
+          ]);
+        }
       } catch {
-        setDone(false);
+        setCompletedQuizIds([]);
+        setQuizzes([
+          {
+            id: 'default-quiz',
+            question: t('lesson.question'),
+            options: [t('lesson.a1'), t('lesson.a2')],
+            correctIndex: 1,
+          },
+        ]);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [t]);
 
-  const options = [t('lesson.a1'), t('lesson.a2')];
-
-  const submit = async (index) => {
-    if (done) {
+  const submit = async (quiz, optionIndex) => {
+    if (completedQuizIds.includes(quiz.id)) {
       toast(t('lesson.already'));
       return;
     }
-    setPicked(index);
+    setPickedByQuiz((prev) => ({ ...prev, [quiz.id]: optionIndex }));
     const auth = getAuth();
     const u = auth.currentUser;
     if (!u) return;
     const id = `${u.uid.slice(0, 5)}${u.uid.slice(-5)}`;
-    if (index === CORRECT_INDEX) {
+    if (optionIndex === Number(quiz.correctIndex || 0)) {
       await awardXpAndSyncProfile(id, XP_REWARDS.quiz_pass);
-      await markQuizDone(id);
-      setDone(true);
+      const nextDone = Array.from(new Set([...completedQuizIds, quiz.id]));
+      await setDoc(
+        doc(db, 'userXp', id),
+        { quizDoneIds: nextDone, updatedAt: new Date() },
+        { merge: true }
+      );
+      setCompletedQuizIds(nextDone);
       toast.success(t('lesson.correctToast'));
     } else {
       toast.error(t('lesson.wrongToast'));
@@ -75,27 +103,44 @@ export default function EcoLesson() {
         </div>
       ) : (
         <>
-          <p className="mb-4 text-lg font-medium text-gray-800">{t('lesson.question')}</p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            {options.map((label, i) => (
-              <button
-                key={label}
-                type="button"
-                disabled={done}
-                onClick={() => submit(i)}
-                className={`flex-1 rounded-xl border-2 px-4 py-4 text-left font-medium transition-colors ${
-                  picked === i && i !== CORRECT_INDEX
-                    ? 'border-red-200 bg-red-50'
-                    : 'border-green-200 bg-green-50 hover:border-green-400'
-                } ${done ? 'cursor-not-allowed opacity-70' : ''}`}
-              >
-                {label}
-              </button>
-            ))}
+          <div className="space-y-4">
+            {quizzes.map((quiz, quizIdx) => {
+              const done = completedQuizIds.includes(quiz.id);
+              const picked = pickedByQuiz[quiz.id];
+              const options = Array.isArray(quiz.options) ? quiz.options : [];
+              return (
+                <div key={quiz.id} className="rounded-xl border border-green-100 bg-green-50 p-4">
+                  <p className="mb-3 text-sm text-green-700">
+                    {t('lesson.quizLabel', { defaultValue: 'Сорил' })} {quizIdx + 1}
+                  </p>
+                  <p className="mb-4 text-lg font-medium text-gray-800">{quiz.question}</p>
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    {options.map((label, i) => (
+                      <button
+                        key={`${quiz.id}-${i}`}
+                        type="button"
+                        disabled={done}
+                        onClick={() => submit(quiz, i)}
+                        className={`flex-1 rounded-xl border-2 px-4 py-4 text-left font-medium transition-colors ${
+                          picked === i && i !== Number(quiz.correctIndex || 0)
+                            ? 'border-red-200 bg-red-50'
+                            : 'border-green-200 bg-white hover:border-green-400'
+                        } ${done ? 'cursor-not-allowed opacity-70' : ''}`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  {done && <p className="mt-3 text-sm font-medium text-green-700">{t('lesson.correctToast')}</p>}
+                </div>
+              );
+            })}
+            {quizzes.length === 0 && (
+              <p className="text-sm text-gray-600">
+                {t('lesson.noQuiz', { defaultValue: 'Одоогоор сорил нэмэгдээгүй байна.' })}
+              </p>
+            )}
           </div>
-          {done && (
-            <p className="mt-6 text-sm font-medium text-green-700">{t('lesson.correctToast')}</p>
-          )}
         </>
       )}
     </div>

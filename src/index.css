@@ -1,59 +1,133 @@
 @import 'tailwindcss';
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --td-bg: #f4f7fb;
+  --td-text: #10231a;
+  --td-muted: #60706a;
+  --td-primary: #0f9f62;
+  --td-primary-strong: #0a7d4c;
+  --td-accent: #64d4a0;
+  --td-card: rgba(255, 255, 255, 0.9);
+  --td-border: rgba(16, 35, 26, 0.08);
+  --td-shadow: 0 12px 30px rgba(13, 30, 22, 0.08);
+  --td-shadow-soft: 0 6px 20px rgba(13, 30, 22, 0.06);
+
+  font-family: 'Inter', 'SF Pro Display', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* color-scheme: light; */
-  /* color: rgba(255, 255, 255, 0.87); */
-  background-color: #ffffff;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Reset dark mode behavior */
-:root {
   color-scheme: light;
-  background-color: #ffffff;
 }
 
-/* span, p {
-    color: black;
-} */
-
-button>span, button>p {
-    color: white;
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
-.text-green-600 {
-    color: var(--color-green-600) !important;
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% -10%, rgba(100, 212, 160, 0.24), transparent 35%),
+    radial-gradient(circle at 100% 0%, rgba(15, 159, 98, 0.13), transparent 40%),
+    var(--td-bg);
+  color: var(--td-text);
 }
 
-.text-green-700 {
-    color: var(--color-green-700) !important;
+.app-page {
+  min-height: 100dvh;
 }
 
-.bg-green-400, .bg-green-500, .bg-green-600, .bg-green-700 {
-    color: white !important;
+.app-shell {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1160px;
+  padding: 14px;
 }
 
-input {
-    color: black !important;
-    border: 1px solid black !important;
+.td-glass {
+  border: 1px solid var(--td-border);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.95), rgba(248, 255, 252, 0.86));
+  backdrop-filter: blur(8px);
 }
 
-/* Standardized form elements */
-input:not([type="file"]),
+.ui-card {
+  border: 1px solid var(--td-border);
+  border-radius: 18px;
+  background: var(--td-card);
+  box-shadow: var(--td-shadow-soft);
+}
+
+.ui-card-hero {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(238, 255, 247, 0.87)),
+    radial-gradient(circle at top right, rgba(100, 212, 160, 0.18), transparent 50%);
+  box-shadow: var(--td-shadow);
+}
+
+.ui-title {
+  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0d6a42;
+}
+
+.ui-subtitle {
+  color: var(--td-muted);
+  font-size: 0.9rem;
+}
+
+.ui-pill {
+  border-radius: 999px;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(13, 106, 66, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  color: #0d6a42;
+}
+
+.ui-action {
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--td-primary), #18b773);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(15, 159, 98, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.ui-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(15, 159, 98, 0.32);
+}
+
+.ui-action:active {
+  transform: translateY(0);
+}
+
+.ui-action-secondary {
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 159, 98, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+  color: #0d6a42;
+  font-weight: 600;
+}
+
+input:not([type='file']),
 textarea,
 select {
-  color: #1a1a1a !important;
-  border: 1px solid #22c55e !important; /* green-500 */
-  background-color: white !important;
-  border-radius: 0.5rem;
+  color: #10231a;
+  border: 1px solid rgba(16, 35, 26, 0.12);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
   padding: 0.75rem;
   width: 100%;
   transition: all 0.2s ease;
@@ -62,167 +136,26 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #1a1a1a;
+  border-color: var(--td-primary);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1); /* green-500 with opacity */
+  box-shadow: 0 0 0 4px rgba(15, 159, 98, 0.13);
 }
 
-/* Image upload/draggable area */
-.drag-drop-zone {
-  border: 2px dashed #22c55e !important;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.drag-drop-zone:hover,
-.drag-drop-zone:focus {
-  border-color: #1a1a1a;
-  background-color: rgba(34, 197, 94, 0.05);
-}
-
-/* Fix text visibility issues */
-.text-white {
-  color: white !important;
-}
-
-/* [class*="bg-white"] *,
-[class*="bg-gray-50"] *,
-[class*="bg-green-50"] * {
-  color: #1a1a1a;
-} */
-
-/* Ensure proper contrast for different backgrounds */
-/* .bg-white,
-.bg-gray-50,
-.bg-green-50 {
-  color: #1a1a1a;
-} */
-
-/* Override Tailwind text colors for better visibility */
-.text-gray-500,
-.text-gray-600,
-.text-gray-700,
-.text-gray-800 {
-  color: #4b5563 !important;
-}
-
-/* Ensure form labels are visible */
 label {
-  color: #374151 !important; /* gray-700 */
-  font-weight: 500;
+  color: #2d4b3f;
+  font-weight: 600;
 }
 
-/* Fix mobile text contrast */
 @media (max-width: 768px) {
-  body {
-    background-color: #ffffff;
+  .app-shell {
+    padding: 10px;
   }
-  
-  /* Ensure text is visible on mobile */
-  /* p, span, h1, h2, h3, h4, h5, h6 {
-    color: #1a1a1a;
-  } */
-  
-  /* Exception for buttons and colored backgrounds */
-  /* [class*="bg-green-"] p,
-  [class*="bg-green-"] span,
-  button[class*="bg-green-"] {
-    color: white;
-  } */
-}
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  .ui-card {
+    border-radius: 14px;
+  }
 
-/* Add this to your CSS file or as a style tag in your component */
-.calendar-swiper .swiper-button-next,
-.calendar-swiper .swiper-button-prev {
-    color: #15803d; /* green-700 */
-    width: 35px;
-    height: 35px;
-}
-
-.calendar-swiper .swiper-button-next:after,
-.calendar-swiper .swiper-button-prev:after {
-    font-size: 20px;
-}
-
-.calendar-swiper .swiper-button-disabled {
-    opacity: 0.35;
-}
-
-.calendar-swiper {
-    touch-action: pan-y pinch-zoom;
-    height: auto !important;
-    min-height: 0 !important;
-}
-
-.calendar-swiper .swiper-wrapper {
-    height: auto !important;
-}
-
-.calendar-swiper .swiper-slide {
-    height: auto !important;
-    padding: 1rem 0;
-    touch-action: pan-y;
-}
-
-.calendar-swiper .swiper-button-next,
-.calendar-swiper .swiper-button-prev {
-    margin-top: -1.5rem;
-    user-select: none;
-    pointer-events: auto;
-}
-
-/* Add to your global CSS or component styles */
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-    padding: 4px 8px;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-.tooltiptext {
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-    padding: 4px 8px;
-    border-radius: 4px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    font-size: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+  .ui-card-hero {
+    border-radius: 16px;
+  }
 }

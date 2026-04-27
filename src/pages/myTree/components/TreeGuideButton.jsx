@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import TreeGuideImg from '../../../assets/TreeGuide.jpg';
 
 const TreeGuideButton = () => {
+    const { t } = useTranslation();
     const [isExpanded, setIsExpanded] = useState(false);
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
@@ -27,7 +29,7 @@ const TreeGuideButton = () => {
                         icon={faInfoCircle} 
                         className="mx-1"
                     />
-                    See Tree Type Guide
+                    {t('tree.guideButton')}
                 </div>
                 <FontAwesomeIcon 
                     icon={isExpanded ? faChevronUp : faChevronDown} 
@@ -46,14 +48,13 @@ const TreeGuideButton = () => {
                     >
                         <img 
                             src={TreeGuideImg} 
-                            alt="Tree Type Guide" 
+                            alt={t('tree.guideImageAlt')}
                             className="w-full h-auto cursor-pointer"
                             onClick={() => setIsImageModalOpen(true)}
                         />
                         <div className="p-4 bg-green-50">
                             <p className="text-sm text-gray-800">
-                                This guide shows common tree types in Mongolia. 
-                                Click the image to view in full size.
+                                {t('tree.guideDescription')}
                             </p>
                         </div>
                     </motion.div>
@@ -72,7 +73,7 @@ const TreeGuideButton = () => {
                     >
                         <motion.img
                             src={TreeGuideImg}
-                            alt="Tree Type Guide Full Size"
+                            alt={t('tree.guideImageFullAlt')}
                             className="max-w-full max-h-[90vh] object-contain"
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}

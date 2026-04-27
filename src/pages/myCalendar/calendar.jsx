@@ -262,7 +262,7 @@ const Calendar = () => {
 
     return (
         <ProtectedRoute>
-            <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-8">
+            <div className="app-shell py-3 sm:py-4">
                 <h1 className="mb-4 text-2xl font-bold text-green-800 sm:mb-6 sm:text-3xl">
                     {t('calendar.title')}
                 </h1>
@@ -299,7 +299,7 @@ const Calendar = () => {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: slideDirection === 'left' ? -300 : 300, opacity: 0 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-                            className="rounded-xl bg-white p-3 shadow-lg sm:p-6"
+                            className="ui-card-hero p-3 sm:p-6"
                         >
                             <MonthlyView
                                 currentDate={currentDate}
@@ -312,7 +312,7 @@ const Calendar = () => {
                     </AnimatePresence>
                 </div>
 
-                <div className="mt-4 rounded-lg bg-white p-3 shadow-sm sm:mt-6 sm:p-4">
+                <div className="ui-card-hero mt-4 p-3 sm:mt-6 sm:p-4">
                     <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-8">
                         <div className="flex items-center justify-center gap-2 sm:justify-start">
                             <FontAwesomeIcon icon={faDroplet} className="text-blue-500" />

@@ -1,11 +1,17 @@
 {
-  "lang": { "mn": "Монгол", "en": "English" },
+  "lang": {
+    "mn": "Монгол",
+    "en": "English"
+  },
   "nav": {
     "dashboard": "Dashboard",
     "trees": "My Trees",
     "badges": "Badges",
     "calendar": "Calendar",
-    "lesson": "Eco lesson"
+    "lesson": "Eco lesson",
+    "journal": "Journal",
+    "updates": "News",
+    "teacherDashboard": "Teacher board"
   },
   "common": {
     "signOut": "Sign out",
@@ -34,7 +40,15 @@
     "statusLine": "Status: {{status}}",
     "statusHealthy": "Healthy",
     "statusDead": "Dead",
-    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    "days": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
   },
   "xp": {
     "label": "Experience (XP)",
@@ -78,7 +92,15 @@
     "unknownType": "Unknown",
     "recently": "Recently",
     "chartHeightY": "Height (cm)",
-    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    "days": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
   },
   "tree": {
     "header": "My trees",
@@ -92,6 +114,7 @@
     "getStarted": "Get started",
     "treeName": "Tree name",
     "treeType": "Tree type",
+    "other": "Other",
     "selectType": "Select type",
     "heightCm": "Initial height (cm)",
     "diameterCm": "Initial diameter (cm)",
@@ -125,6 +148,31 @@
     "logPictureType": "Log photo",
     "plantingSuccess": "Tree planted successfully!",
     "plantFail": "Could not save. Try again.",
+    "defaultTreeName": "My tree",
+    "defaultCapsule": "None",
+    "unknownType": "Unknown",
+    "initialPlantingNote": "Initial planting measurements",
+    "maxImages": "Maximum 3 images allowed.",
+    "enterTreeName": "Enter tree name",
+    "nameHint": "Give your green friend a name.",
+    "typeHint": "Choose the type of tree you are planting.",
+    "typePlaceholder": "e.g., Oak, Birch, Pine",
+    "enterHeightCm": "Enter initial height in cm",
+    "heightHint": "Measure and enter your tree height in cm.",
+    "enterDiameterCm": "Enter initial diameter in cm",
+    "diameterHint": "Measure and enter your tree diameter in cm.",
+    "uploadAlt": "Upload",
+    "morePhotosAllowed_one": "{{count}} more photo allowed",
+    "morePhotosAllowed_other": "{{count}} more photos allowed",
+    "photosHint": "Add up to 3 photos with your tree.",
+    "timeCapsulePlaceholder": "Write your time capsule message (600 characters max)",
+    "timeCapsuleHint": "You will see this later. Leave a note for your future self.",
+    "writeMessage": "Write your message (600 characters max)",
+    "characterCount": "{{current}}/{{max}} characters",
+    "guideButton": "See tree type guide",
+    "guideImageAlt": "Tree type guide",
+    "guideImageFullAlt": "Tree type guide full size",
+    "guideDescription": "This guide shows common tree types in Mongolia. Click the image to view it in full size.",
     "wateredOk": "Watering saved!",
     "waterFail": "Could not record watering",
     "logOk": "Log saved!",
@@ -146,11 +194,26 @@
     "secretLabel": "??? · Secret achievement",
     "required": "Required: {{req}}{{unit}}",
     "categories": {
-      "watering": { "title": "Watering achievements", "unit": "waterings" },
-      "height": { "title": "Height milestones", "unit": "cm" },
-      "age": { "title": "Tree age achievements", "unit": "days" },
-      "consistency": { "title": "Consistency", "unit": "day streak" },
-      "secret": { "title": "Secret achievements", "unit": "" }
+      "watering": {
+        "title": "Watering achievements",
+        "unit": "waterings"
+      },
+      "height": {
+        "title": "Height milestones",
+        "unit": "cm"
+      },
+      "age": {
+        "title": "Tree age achievements",
+        "unit": "days"
+      },
+      "consistency": {
+        "title": "Consistency",
+        "unit": "day streak"
+      },
+      "secret": {
+        "title": "Secret achievements",
+        "unit": ""
+      }
     },
     "items": {
       "first_sip": {
@@ -255,7 +318,9 @@
     "a2": "Birch",
     "correctToast": "Correct! +50 XP",
     "wrongToast": "Try again.",
-    "already": "You already completed this quiz."
+    "already": "You already completed this quiz.",
+    "quizLabel": "Quiz",
+    "noQuiz": "No quiz available yet."
   },
   "certificate": {
     "title": "Eco‑Ambassador certificate",
@@ -269,10 +334,10 @@
   "landing": {
     "brand": "TreeDoctor",
     "forTeaching": "For educators",
-    "getStarted": "Get started",
-    "heroTitle": "A collaboration platform for school tree projects",
+    "getStarted": "Log in",
+    "heroTitle": "A collaboration platform for school tree care",
     "heroSub": "Growth, watering, and health data in one place.",
-    "beginProject": "Begin your tree project"
+    "beginProject": "Log in"
   },
   "auth": {
     "email": "Email",
@@ -282,6 +347,116 @@
     "register": "Register",
     "createAccount": "Create account",
     "haveAccount": "Have an account? Sign in",
-    "noAccount": "New here? Register"
+    "noAccount": "New here? Register",
+    "fullName": "Full name",
+    "school": "School",
+    "className": "Class",
+    "province": "Province",
+    "selectProvince": "Select province",
+    "role": "Role",
+    "roleStudent": "Student",
+    "roleTeacher": "Teacher",
+    "welcomeTitle": "Let's grow a greener future together",
+    "welcomeSubtitle": "The easiest platform to manage student tree growth, watering, and daily logs in one place.",
+    "welcomeHint": "Sign in to continue your class, school, and tree progress.",
+    "forgotPassword": "Forgot password?",
+    "resetSent": "Password reset email sent. Please check your inbox.",
+    "enterEmailFirst": "Please enter your email first."
+  },
+  "province": {
+    "title": "Province coverage",
+    "subtitle": "Gray provinces have no registered users yet.",
+    "totalRegistered": "{{count}} registered users",
+    "joinedCount": "{{count}} users",
+    "notJoined": "No users yet",
+    "legendJoined": "Joined",
+    "legendNotJoined": "Not joined",
+    "mapAria": "Mongolia province coverage map"
+  },
+  "profilePrompt": {
+    "title": "Complete your profile",
+    "subtitle": "Please fill the required profile information to continue.",
+    "save": "Save and continue",
+    "saving": "Saving..."
+  },
+  "journal": {
+    "title": "Daily platform note",
+    "subtitle": "Write what you did today on TreeDoctor. Teachers can review this.",
+    "todayLabel": "Today: {{date}}",
+    "placeholder": "Example: watered my tree, updated height, uploaded photos...",
+    "save": "Save note",
+    "saving": "Saving...",
+    "saved": "Saved"
+  },
+  "updates": {
+    "newsTitle": "Teacher news and blogs",
+    "quizTitle": "Teacher quizzes",
+    "emptyNews": "No posts yet.",
+    "emptyQuiz": "No quizzes yet."
+  },
+  "teacher": {
+    "totalStudents": "Total students",
+    "totalTrees": "Total trees",
+    "totalLogs": "Total measurement logs",
+    "totalJournals": "Total daily notes",
+    "publishNews": "Publish news / blog",
+    "publishQuiz": "Publish quiz",
+    "newsTitle": "News title",
+    "newsBody": "Write news/blog content for students...",
+    "updateNews": "Save changes",
+    "cancelEdit": "Cancel edit",
+    "newsListTitle": "Published news posts",
+    "newsLabel": "News",
+    "editNews": "Edit",
+    "deleteNews": "Delete",
+    "noNewsYet": "No news posts yet.",
+    "newsUpdated": "News updated successfully.",
+    "newsPublished": "News published successfully.",
+    "newsSaveFail": "Failed to save news.",
+    "newsEditing": "Edit mode is active.",
+    "newsEditCancelled": "Edit mode cancelled.",
+    "newsDeleted": "News deleted.",
+    "newsDeleteFail": "Failed to delete news.",
+    "newsEditingBanner": "You are editing a post. Click \"Save changes\" when done.",
+    "quizQuestion": "Quiz question",
+    "quizOptions": "One option per line",
+    "publish": "Publish",
+    "studentAnalytics": "Student analytics",
+    "studentName": "Student name",
+    "school": "School",
+    "class": "Class",
+    "province": "Province",
+    "noPhoto": "No photo",
+    "type": "Type",
+    "logs": "Logs",
+    "waters": "Waters",
+    "latestNote": "Latest daily note",
+    "noNotes": "No note yet.",
+    "noStudents": "No student data found.",
+    "searchStudents": "Search by name, user ID, or email",
+    "exportExcel": "Download Excel",
+    "xlsx": {
+      "sheetName": "Students",
+      "studentName": "Student Name",
+      "userId": "User ID",
+      "email": "Email",
+      "school": "School",
+      "className": "Class",
+      "province": "Province",
+      "treeCount": "Tree Count",
+      "treeNames": "Tree Names",
+      "totalWaterings": "Total Waterings",
+      "totalLogs": "Total Logs",
+      "latestDailyNote": "Latest Daily Note"
+    },
+    "quizCorrectOption": "Correct answer number (starting from 1)",
+    "quizOptionLabel": "Option",
+    "removeOption": "Remove",
+    "addOption": "+ Add option",
+    "correctOptionPrefix": "Option",
+    "quizListTitle": "Published quizzes",
+    "quizLabel": "Quiz",
+    "deleteQuiz": "Delete",
+    "noQuizYet": "No quizzes created yet."
   }
 }

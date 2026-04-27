@@ -197,17 +197,17 @@ const TreeList = ({ userId }) => {
                 date: now,
                 height: parseInt(newTree.height) || 0,
                 diameter: parseInt(newTree.diameter) || 0,
-                note: "Initial planting measurements",
+                note: t('tree.initialPlantingNote'),
                 status: "healthy",
                 picture: imageBase64Array[0] || null // Use first image for log if available
             };
 
             const treeDoc = {
-                name: newTree.name || 'My Tree',
+                name: newTree.name || t('tree.defaultTreeName'),
                 date: now,
                 pictures: imageBase64Array,
-                capsule: newTree.message || 'None',
-                treeType: newTree.treeType === "Other" ? customTreeType : newTree.treeType || 'Unknown',
+                capsule: newTree.message || t('tree.defaultCapsule'),
+                treeType: newTree.treeType === "Other" ? customTreeType : newTree.treeType || t('tree.unknownType'),
                 wateringDates: [],
                 lastWatered: null,
                 // Add initial log
@@ -266,7 +266,7 @@ const TreeList = ({ userId }) => {
         
         const files = Array.from(e.dataTransfer.files);
         if (newTree.images.length + files.length > 3) {
-            toast.error('Maximum 3 images allowed');
+            toast.error(t('tree.maxImages'));
             return;
         }
 
@@ -280,7 +280,7 @@ const TreeList = ({ userId }) => {
     const handleImageInput = async (e) => {
         const files = Array.from(e.target.files);
         if (newTree.images.length + files.length > 3) {
-            toast.error('Maximum 3 images allowed');
+            toast.error(t('tree.maxImages'));
             return;
         }
         
@@ -334,11 +334,11 @@ const TreeList = ({ userId }) => {
                                 animate={{ x: 0, opacity: 1 }}
                                 exit={{ x: -300, opacity: 0 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                                className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8"
+                                className="ui-card rounded-xl bg-white/95 p-4 shadow-xl backdrop-blur-sm sm:p-8"
                             >
-                                <div className="text-center space-y-6 max-w-2xl mx-auto">
-                                    <FaSeedling className="text-6xl text-green-600 mx-auto" />
-                                    <h2 className="text-2xl font-bold text-green-800">{t('tree.welcomeTitle')}</h2>
+                                <div className="mx-auto max-w-2xl space-y-5 text-center sm:space-y-6">
+                                    <FaSeedling className="mx-auto text-5xl text-green-600 sm:text-6xl" />
+                                    <h2 className="text-xl font-bold text-green-800 sm:text-2xl">{t('tree.welcomeTitle')}</h2>
                                     <p className="text-green-600">
                                         {t('tree.welcomeBody')}
                                     </p>
@@ -361,9 +361,7 @@ const TreeList = ({ userId }) => {
                                     </div>
                                     <button
                                         onClick={goToNextPhase}
-                                        className="bg-green-600 px-8 py-4 rounded-xl hover:bg-green-700 
-                                                 transition-all transform hover:scale-105 shadow-md flex items-center 
-                                                 gap-2 mx-auto"
+                                        className="mx-auto flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-700 sm:w-auto sm:px-8 sm:py-4 sm:text-base"
                                     >
                                         {t('tree.getStarted')}
                                         <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
@@ -379,14 +377,14 @@ const TreeList = ({ userId }) => {
                                 animate={{ x: 0, opacity: 1 }}
                                 exit={{ x: -300, opacity: 0 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                                className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8"
+                                className="ui-card rounded-xl bg-white/95 p-4 shadow-xl backdrop-blur-sm sm:p-8"
                             >
-                                <div className="text-center space-y-6 max-w-2xl mx-auto">
+                                <div className="mx-auto max-w-2xl space-y-5 text-center sm:space-y-6">
                                     <FontAwesomeIcon 
                                         icon={fields[currentPhase - 1].icon} 
-                                        className="text-6xl text-green-600" 
+                                        className="text-5xl text-green-600 sm:text-6xl"
                                     />
-                                    <h2 className="text-2xl font-bold text-green-800">
+                                    <h2 className="text-xl font-bold text-green-800 sm:text-2xl">
                                         {t(fields[currentPhase - 1].titleKey)}
                                     </h2>
 
@@ -398,10 +396,10 @@ const TreeList = ({ userId }) => {
                                                 value={newTree.name}
                                                 onChange={(e) => setNewTree({...newTree, name: e.target.value})}
                                                 className="w-full p-3 border border-green-200 rounded-lg"
-                                                placeholder="Enter tree name"
+                                                placeholder={t('tree.enterTreeName')}
                                             />
                                             <p className="text-md text-green-600">
-                                                Enter the given name of your green friend!
+                                                {t('tree.nameHint')}
                                             </p>
                                         </div>
                                     )}
@@ -412,18 +410,18 @@ const TreeList = ({ userId }) => {
                                                 onChange={(e) => setNewTree({...newTree, treeType: e.target.value})}
                                                 className="w-full p-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
                                             >
-                                                <option value="">Select a tree type</option>
+                                                <option value="">{t('tree.selectType')}</option>
                                                 {TREE_TYPES.map(type => (
                                                     <option key={type} value={type}>
                                                         {type}
                                                     </option>
                                                 ))}
-                                                <option value="Other">Other</option>
+                                                <option value="Other">{t('tree.other')}</option>
                                             </select>
                                             <TreeGuideButton />
 
                                             <p className="text-md text-green-600">
-                                                Choose the type of tree you're planting
+                                                {t('tree.typeHint')}
                                             </p>
                                             
                                             {
@@ -435,7 +433,7 @@ const TreeList = ({ userId }) => {
                                                         setCustomTreeType(e.target.value)
                                                     }}
                                                     className="w-full p-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                                    placeholder="e.g., Oak, Birch, Pine"
+                                                    placeholder={t('tree.typePlaceholder')}
                                                 />)
                                             }
                                         </div>
@@ -447,10 +445,10 @@ const TreeList = ({ userId }) => {
                                                 value={newTree?.height}
                                                 onChange={(e) => setNewTree({...newTree, height: e.target.value})}
                                                 className="w-full p-2 border rounded-md"
-                                                placeholder="Enter initial height in CM"
+                                                placeholder={t('tree.enterHeightCm')}
                                             />
                                             <p className="text-sm text-green-600">
-                                                Measure the height of your friend using a meter! (CM)
+                                                {t('tree.heightHint')}
                                             </p>
                                         </div>
                                     )}
@@ -461,10 +459,10 @@ const TreeList = ({ userId }) => {
                                                 value={newTree.diameter}
                                                 onChange={(e) => setNewTree({...newTree, diameter: e.target.value})}
                                                 className="w-full p-3 border border-green-200 rounded-lg"
-                                                placeholder="Enter initial diameter in CM"
+                                                placeholder={t('tree.enterDiameterCm')}
                                             />
                                             <p className="text-sm text-green-600">
-                                                The diameter is the circumference divided by π! (CM)
+                                                {t('tree.diameterHint')}
                                             </p>
                                         </div>
                                     )}
@@ -496,7 +494,7 @@ const TreeList = ({ userId }) => {
                                                                 <div key={index} className="relative">
                                                                     <img
                                                                         src={URL.createObjectURL(image)}
-                                                                        alt={`Upload ${index + 1}`}
+                                                                        alt={`${t('tree.uploadAlt')} ${index + 1}`}
                                                                         className="w-full h-24 object-cover rounded-lg"
                                                                     />
                                                                     <button
@@ -515,17 +513,17 @@ const TreeList = ({ userId }) => {
                                                             ))}
                                                         </div>
                                                         <p className="text-sm text-green-600">
-                                                            {3 - newTree.images.length} more {3 - newTree.images.length === 1 ? 'photo' : 'photos'} allowed
+                                                            {t('tree.morePhotosAllowed', { count: 3 - newTree.images.length })}
                                                         </p>
                                                     </div>
                                                 ) : (
                                                     <p className="text-gray-500">
-                                                        Drop up to 3 images here or click to select
+                                                        {t('tree.dropPhotos')}
                                                     </p>
                                                 )}
                                             </div>
                                             <p className="text-sm text-green-600">
-                                                Select up to 3 pictures of your tree with yourself, and family!
+                                                {t('tree.photosHint')}
                                             </p>
                                         </div>
                                     )}
@@ -536,18 +534,18 @@ const TreeList = ({ userId }) => {
                                                 onChange={(e) => setNewTree({...newTree, message: e.target.value})}
                                                 maxLength={600}
                                                 className="w-full p-3 border border-green-200 rounded-lg h-24"
-                                                placeholder="Write your time capsule message (600 characters max)"
+                                                placeholder={t('tree.timeCapsulePlaceholder')}
                                             />
                                             <p className="text-sm text-green-600">
-                                                You'll see this in 6 years! For example, describe how was the weather, or leave a message for your future self!
+                                                {t('tree.timeCapsuleHint')}
                                             </p>
                                         </div>
                                     )}
 
-                                    <div className="flex justify-between mt-8">
+                                    <div className="mt-6 flex flex-col gap-2 sm:mt-8 sm:flex-row sm:justify-between">
                                         <button
                                             onClick={() => setCurrentPhase(prev => prev - 1)}
-                                            className="px-6 py-2 text-green-600 hover:text-green-700"
+                                            className="min-h-11 rounded-lg px-4 py-2 text-green-700 hover:bg-green-50"
                                             disabled={currentPhase === 1}
                                         >
                                             {t('common.back')}
@@ -555,10 +553,10 @@ const TreeList = ({ userId }) => {
                                     <button
                                         onClick={handleNextPhase}
                                         disabled={fields[currentPhase - 1].required && !isCurrentPhaseValid()}
-                                        className={`px-8 py-3 rounded-xl transition-all transform shadow-md ${
+                                        className={`min-h-11 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors sm:px-8 sm:text-base ${
                                             fields[currentPhase - 1].required && !isCurrentPhaseValid()
                                                 ? 'bg-gray-300 cursor-not-allowed'
-                                                : 'bg-green-600 hover:bg-green-700 hover:scale-105'
+                                                : 'bg-green-600 hover:bg-green-700'
                                         }`}
                                     >
                                         {currentPhase === 7 ? t('tree.letsGo') : t('common.next')}
@@ -593,10 +591,10 @@ const TreeList = ({ userId }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
-            <div className="container mx-auto max-w-full px-3 py-4 sm:px-4 sm:py-8">
+        <div className="app-page">
+            <div className="app-shell py-3 sm:py-4">
                 {/* Header Section */}
-                <div className="mb-6 flex flex-col gap-4 rounded-xl bg-white/80 p-4 shadow-lg backdrop-blur-sm sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
+                <div className="ui-card-hero mb-6 flex flex-col gap-4 p-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
                     <h1 className="min-w-0 text-2xl font-bold leading-tight text-green-800 sm:text-3xl">
                         {t('tree.header')}
                     </h1>
@@ -608,7 +606,7 @@ const TreeList = ({ userId }) => {
                             <button
                                 type="button"
                                 onClick={() => setIsModalOpen(true)}
-                                className="flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-700 active:bg-green-800 sm:w-auto sm:shrink-0 sm:px-6 sm:text-base sm:hover:scale-[1.02]"
+                                className="ui-action flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white sm:w-auto sm:shrink-0 sm:px-6 sm:text-base"
                             >
                                 <FontAwesomeIcon icon={faPlus} className="shrink-0" aria-hidden />
                                 <span className="text-center leading-snug">{t('tree.plantNew')}</span>
@@ -647,7 +645,7 @@ const TreeList = ({ userId }) => {
                                     initial={{ scale: 0.95 }}
                                     animate={{ scale: 1 }}
                                     exit={{ scale: 0.95 }}
-                                    className="relative mx-3 w-full max-w-md rounded-2xl border border-green-100 bg-white p-4 shadow-2xl sm:mx-4 sm:p-8"
+                                    className="td-glass relative mx-3 w-full max-w-md rounded-2xl border border-green-100 bg-white p-4 shadow-2xl sm:mx-4 sm:p-8"
                                 >
                                     <div className="text-2xl font-bold text-green-800 mb-6 flex items-center gap-3">
                                         <FaSeedling className="text-green-600" />
@@ -678,17 +676,17 @@ const TreeList = ({ userId }) => {
                                                 date: now,
                                                 height: parseInt(newTree.height) || 0,
                                                 diameter: parseInt(newTree.diameter) || 0,
-                                                note: "Initial planting measurements",
+                                                note: t('tree.initialPlantingNote'),
                                                 status: "healthy",
                                                 picture: imageBase64Array[0] || null // Use first image for log if available
                                             };
 
                                             const treeDoc = {
-                                                name: newTree.name || 'My Tree',
+                                                name: newTree.name || t('tree.defaultTreeName'),
                                                 date: now,
                                                 pictures: imageBase64Array,
-                                                capsule: newTree.message || 'None',
-                                                treeType: newTree.treeType === "Other" ? customTreeType : newTree.treeType || 'Unknown',
+                                                capsule: newTree.message || t('tree.defaultCapsule'),
+                                                treeType: newTree.treeType === "Other" ? customTreeType : newTree.treeType || t('tree.unknownType'),
                                                 wateringDates: [],
                                                 lastWatered: null,
                                                 // Add initial log
@@ -740,20 +738,20 @@ const TreeList = ({ userId }) => {
                                     }} className="space-y-6">
                                         <div>
                                             <label className="block text-sm font-medium text-green-700 mb-2">
-                                                Tree Name
+                                                {t('tree.treeName')}
                                             </label>
                                             <input
                                                 type="text"
                                                 value={newTree.name}
                                                 onChange={(e) => setNewTree({...newTree, name: e.target.value})}
                                                 className="w-full p-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                                placeholder="Enter tree name"
+                                                placeholder={t('tree.enterTreeName')}
                                             />
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Height (cm)
+                                                {t('tree.heightCm')}
                                             </label>
                                             <input
                                                 type="number"
@@ -765,7 +763,7 @@ const TreeList = ({ userId }) => {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Initial Diameter (cm)
+                                                {t('tree.diameterCm')}
                                             </label>
                                             <input
                                                 type="number"
@@ -776,20 +774,20 @@ const TreeList = ({ userId }) => {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-green-700 mb-2">
-                                                Tree Type
+                                                {t('tree.treeType')}
                                             </label>
                                             <select
                                                 value={newTree.treeType}
                                                 onChange={(e) => setNewTree({...newTree, treeType: e.target.value})}
                                                 className="w-full p-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
                                             >
-                                                <option value="">Select a tree type</option>
+                                                <option value="">{t('tree.selectType')}</option>
                                                 {TREE_TYPES.map(type => (
                                                     <option key={type} value={type}>
                                                         {type}
                                                     </option>
                                                 ))}
-                                                <option value="Other">Other</option>
+                                                <option value="Other">{t('tree.other')}</option>
                                             </select>
                                             {
                                                 newTree.treeType == 'Other' &&
@@ -798,7 +796,7 @@ const TreeList = ({ userId }) => {
                                                     value={customTreeType}
                                                     onChange={(e) => setCustomTreeType(e.target.value)}
                                                     className="w-full p-3 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                                    placeholder="e.g., Oak, Birch, Pine"
+                                                    placeholder={t('tree.typePlaceholder')}
                                                 />
                                             }
                                         </div>
@@ -857,7 +855,7 @@ const TreeList = ({ userId }) => {
                                                                 <div key={index} className="relative">
                                                                     <img
                                                                         src={URL.createObjectURL(image)}
-                                                                        alt={`Upload ${index + 1}`}
+                                                                        alt={`${t('tree.uploadAlt')} ${index + 1}`}
                                                                         className="w-full h-24 object-cover rounded-lg"
                                                                     />
                                                                     <button
@@ -876,12 +874,12 @@ const TreeList = ({ userId }) => {
                                                             ))}
                                                         </div>
                                                         <p className="text-sm text-green-600">
-                                                            {3 - newTree.images.length} more {3 - newTree.images.length === 1 ? 'photo' : 'photos'} allowed
+                                                            {t('tree.morePhotosAllowed', { count: 3 - newTree.images.length })}
                                                         </p>
                                                     </div>
                                                 ) : (
                                                     <p className="text-gray-500">
-                                                        Drop up to 3 images here or click to select
+                                                        {t('tree.dropPhotos')}
                                                     </p>
                                                 )}
                                             </div>
@@ -889,17 +887,17 @@ const TreeList = ({ userId }) => {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Time Capsule Message
+                                                {t('tree.capsule')}
                                             </label>
                                             <textarea
                                                 value={newTree.message}
                                                 onChange={(e) => setNewTree({...newTree, message: e.target.value})}
                                                 maxLength={600}
                                                 className="w-full p-3 border border-green-200 rounded-lg h-24"
-                                                placeholder="Write your message (600 characters max)"
+                                                placeholder={t('tree.writeMessage')}
                                             />
                                             <p className={`text-sm mt-1 ${getCharacterCountColor(newTree.message.length || 0, 600)}`}>
-                                                {newTree.message.length}/600 characters
+                                                {t('tree.characterCount', { current: newTree.message.length, max: 600 })}
                                             </p>
                                         </div>
 
@@ -909,7 +907,7 @@ const TreeList = ({ userId }) => {
                                                 onClick={() => setIsModalOpen(false)}
                                                 className="px-6 py-2 text-gray-600 hover:text-gray-800 transition-colors"
                                             >
-                                                Cancel
+                                                {t('common.cancel')}
                                             </button>
                                             <button
                                                 type="submit"
