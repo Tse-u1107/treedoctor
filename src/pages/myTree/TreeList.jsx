@@ -44,6 +44,7 @@ const TreeList = ({ userId }) => {
     const [mapLat, setMapLat] = useState(null);
     const [mapLng, setMapLng] = useState(null);
     const [locationLabel, setLocationLabel] = useState('');
+    const [isSubmittingTree, setIsSubmittingTree] = useState(false);
 
     const getCharacterCountColor = (length, max) => {
         if (length > max * 0.9) return 'text-red-500';
@@ -177,11 +178,13 @@ const TreeList = ({ userId }) => {
 
     // Update the handleNewTree function
     const handleNewTree = async () => {
+        if (isSubmittingTree) return;
         if (trees.length >= 3) {
             alert(t('tree.maxTrees'));
             return;
         }
         
+        setIsSubmittingTree(true);
         try {
             let imageBase64Array = [];
             for (const image of newTree.images) {
@@ -257,6 +260,8 @@ const TreeList = ({ userId }) => {
         } catch (error) {
             console.error('Error creating tree:', error);
             toast.error(t('tree.plantFail'));
+        } finally {
+            setIsSubmittingTree(false);
         }
     };
 
@@ -552,9 +557,9 @@ const TreeList = ({ userId }) => {
                                         </button>
                                     <button
                                         onClick={handleNextPhase}
-                                        disabled={fields[currentPhase - 1].required && !isCurrentPhaseValid()}
+                                        disabled={isSubmittingTree || (fields[currentPhase - 1].required && !isCurrentPhaseValid())}
                                         className={`min-h-11 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors sm:px-8 sm:text-base ${
-                                            fields[currentPhase - 1].required && !isCurrentPhaseValid()
+                                            isSubmittingTree || (fields[currentPhase - 1].required && !isCurrentPhaseValid())
                                                 ? 'bg-gray-300 cursor-not-allowed'
                                                 : 'bg-green-600 hover:bg-green-700'
                                         }`}
@@ -654,87 +659,7 @@ const TreeList = ({ userId }) => {
                                     
                                     <form onSubmit={async (e) => {
                                         e.preventDefault();
-                                        if (trees.length >= 3) {
-                                            alert(t('tree.maxTrees'));
-                                            return;
-                                        }
-                                        
-                                        try {
-                                            // Convert image to Base64
-
-                                            let imageBase64Array = [];
-                                            for (const image of newTree.images) {
-                                                const compressedImage = await compressImage(image);
-                                                const base64 = await convertToBase64(compressedImage);
-                                                imageBase64Array.push(base64);
-                                            }
-
-                                            const now = new Date();
-                                            
-                                            // Create the first log with initial measurements
-                                            const initialLog = {
-                                                date: now,
-                                                height: parseInt(newTree.height) || 0,
-                                                diameter: parseInt(newTree.diameter) || 0,
-                                                note: t('tree.initialPlantingNote'),
-                                                status: "healthy",
-                                                picture: imageBase64Array[0] || null // Use first image for log if available
-                                            };
-
-                                            const treeDoc = {
-                                                name: newTree.name || t('tree.defaultTreeName'),
-                                                date: now,
-                                                pictures: imageBase64Array,
-                                                capsule: newTree.message || t('tree.defaultCapsule'),
-                                                treeType: newTree.treeType === "Other" ? customTreeType : newTree.treeType || t('tree.unknownType'),
-                                                wateringDates: [],
-                                                lastWatered: null,
-                                                // Add initial log
-                                                logs: [initialLog],
-                                                // Keep these for backwards compatibility
-                                                heights: {
-                                                    [now.toISOString()]: parseInt(newTree.height) || 0
-                                                },
-                                                diameters: {
-                                                    [now.toISOString()]: parseInt(newTree.diameter) || 0
-                                                },
-                                                locationLabel: locationLabel || '',
-                                                ...(mapLat != null && mapLng != null ? { lat: mapLat, lng: mapLng } : {}),
-                                            };
-
-                                            const treesRef = collection(db, 'userTrees', userId, 'trees');
-                                            await setDoc(doc(treesRef), treeDoc);
-                                            
-                                            setIsModalOpen(false);
-                                            setNewTree({ 
-                                                name: '', 
-                                                height: 0, 
-                                                diameter: 0,
-                                                images: [],
-                                                message: '',
-                                                treeType: ''
-                                            });
-                                            setMapLat(null);
-                                            setMapLng(null);
-                                            setLocationLabel('');
-
-                                            toast.success(t('tree.plantingSuccess'));
-
-                                            // Show confetti if this is the first tree
-                                            confetti({
-                                                particleCount: 100,
-                                                spread: 70,
-                                                origin: { y: 0.6 }
-                                            });
-                                            
-                                            const list = await fetchTrees();
-                                            await checkAndAwardBadges(userId, list);
-                                            await awardXpAndSyncProfile(userId, XP_REWARDS.tree_registered);
-                                        } catch (error) {
-                                            console.error('Error creating tree:', error);
-                                            toast.error(t('tree.plantFail'));
-
-                                        }
+                                        await handleNewTree();
                                     }} className="space-y-6">
                                         <div>
                                             <label className="block text-sm font-medium text-green-700 mb-2">
@@ -911,9 +836,10 @@ const TreeList = ({ userId }) => {
                                             </button>
                                             <button
                                                 type="submit"
+                                                disabled={isSubmittingTree}
                                                 className="px-6 py-2 bg-green-600 rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-md"
                                             >
-                                                Let's go! 🌱
+                                                {isSubmittingTree ? t('common.loading') : t('tree.letsGo')}
                                             </button>
                                         </div>
                                     </form>
